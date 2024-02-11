@@ -19,10 +19,10 @@ string** createandpopulate(char *sen, int& rows)
         if (*(sen + i) == '#' || *(sen + i+1) == '\0')
         {    
             if (index >= 0 && index < rows) {
-                ptr[index] = new string[length + 1];
+                *(ptr+index) = new string[length + 1];
                
                 //cout << "Created one D of len " << length + 1 << endl;
-                len[index] = length + 1;
+                *(len+index) = length + 1;
                 index++;
                 length = 0;
             }
@@ -39,7 +39,7 @@ string** createandpopulate(char *sen, int& rows)
     {
         if (*(sen + i) == '#')
         {
-            ptr[index][j] = value;
+            *(*(ptr+index)+j) = value;
             //cout << "copied at # "<<ptr[index][j] << endl;
             j=0;
             index++;
@@ -48,7 +48,7 @@ string** createandpopulate(char *sen, int& rows)
         else if (*(sen + i+1) == '\0')
         {
             value += *(sen + i);
-            ptr[index][j] = value;
+            *(*(ptr+index)+j)  = value;
             //cout << "copied at # "<<ptr[index][j] << endl;
             j=0;
             index++;
@@ -57,7 +57,7 @@ string** createandpopulate(char *sen, int& rows)
         else if (*(sen + i) == ' ')
         {
             if (index >= 0 && index < rows) {
-                ptr[index][j] = value;
+                *(*(ptr+index)+j)  = value;
                 //cout << "copied at space " << ptr[index][j] << endl;
                 j++;
                 value = "";
@@ -80,11 +80,20 @@ int main()
     cin>>checkSyno;
     for(int i=0;i<row;i++)
     {
-        if(checkSyno==ptr[i][0])
+        if(checkSyno==*(*(ptr+i)+0))
         {
-            cout<<ptr[i][len[i]-1];
+            cout<<*(*(ptr+i)+(len[i]-1));
         }
     }
+    for(int i=0;i<row;i++)
+    {
+        delete[]*(ptr+i);
+        *(ptr+i)=nullptr;
+
+    }
+    delete[]ptr;
+    delete[] len;
+    len = nullptr;
 
 
     // for (int i = 0; i < row; i++)

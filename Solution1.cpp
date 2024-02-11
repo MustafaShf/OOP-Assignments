@@ -28,6 +28,7 @@ void createandpopulate(int arr[][6], int row, int col, int **&ptr)
             }
         }
     }
+    
 }
 
 int main()

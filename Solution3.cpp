@@ -11,7 +11,7 @@ int** compress(int**image, int rows, int cols, int value)
         count=0;
         for(int j=0;j<cols;j++)
         {
-            if(image[i][j]==value)
+            if(*(*(image+i)+j)==value)
             {
                 count++;
             }
@@ -52,7 +52,7 @@ int main()
         image[i] = new int[cols];
         for (int j = 0; j < cols; j++)
         {
-            image[i][j] = imageData[i][j];
+            *(*(image+i)+j) = imageData[i][j];
         }
     }
     cout<<"Enter Value 0 or 1: ";
@@ -60,13 +60,23 @@ int main()
     compImgPtr=compress(image,rows,cols,value);
     for(int i=0;i<rows;i++)
     {
-        for(int j=0;j<=compImgPtr[i][0];j++)
+        for(int j=0;j<=*(*(compImgPtr+i)+0);j++)
         {
-            cout<<compImgPtr[i][j]<<" ";
+            cout<<*(*(compImgPtr+i)+j)<<" ";
         }
         cout<<endl;
     }
 
+    for(int i=0;i<rows;i++)
+    {
+        delete[]*(compImgPtr+i);
+        delete[]*(image+i);
+        *(compImgPtr+i)=nullptr;
+        *(image+i)=nullptr;
 
+
+    }
+     delete[]compImgPtr;
+     delete[]image;
     return 0;
 }

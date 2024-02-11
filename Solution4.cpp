@@ -61,6 +61,12 @@ int main()
     int divisorArr[5]={5,12,15,20,27};
     int **ptr=getDivisors(divisorArr,n);
     printDivisorArr(ptr,n);
+    for(int i=0;i<n;i++)
+    {
+        delete[]*(ptr+i);
+        *(ptr+i)=nullptr;
+    }
+    delete[]ptr;
 
 
     return 0;

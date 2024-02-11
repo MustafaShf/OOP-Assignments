@@ -53,21 +53,31 @@ int main() {
     int **acheivers=nullptr;
     
     int scores[rows][cols] = {
-        {198, 352, 240, 286, 332}, // Australia
-        {357, 281, 290, 392, 218}, // England
-        {249, 408, 374, 346, 341}, // India
-        {426, 451, 160, 132, 412}, // Pakistan
-        {186, 195, 248, 482, 486}  // New Zealand
+// Australia // England  // India // Pak// New Zealand
+        {198,   352,     240,    286,       332}, 
+        {357,   281,     290,    392,       218}, 
+        {249,   408,     374,    346,       341}, 
+        {426,   451,     160,    132,       412}, 
+        {186,   195,     248,    482,       486}  
     };
 
     createandpopulate(scores,rows,acheivers);
-for(int i=0;i<rows;i++)
-{
-    for(int j=0;j<countCols[i];j++)
+    for(int i=0;i<rows;i++)
     {
-        cout<<acheivers[i][j]<<" ";
+        for(int j=0;j<countCols[i];j++)
+        {
+            cout<<acheivers[i][j]<<" ";
+        }
+        cout<<endl;
     }
-    cout<<endl;
-}
+    for(int i=0;i<rows;i++)
+    {
+        delete[]*(acheivers+i);
+        *(acheivers+i)=nullptr;
+
+    }
+    delete[]acheivers;
+    delete[] countCols;
+    countCols = nullptr;
     return 0;
 }

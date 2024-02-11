@@ -29,11 +29,11 @@ char** personAConversation(char tokenz[][101],int &rows)
             int m = 0;
             for (int j = 1; tokenz[i][j] != '\0'; j++) {
                 if (tokenz[i][j] != ' ') {
-                    ptr[k][m] = tokenz[i][j];
+                    *(*(ptr+k)+m) = tokenz[i][j];
                     m++;
                 }
             }
-            ptr[k][m] = '\0'; 
+            *(*(ptr+k)+m) = '\0'; 
             k++;
         }
     }
@@ -71,11 +71,16 @@ int main() {
     ptr=personAConversation(tokenz,count);
     // Display the stored values
     for (int i = 0; i < count; i++) {
-        for (int j = 0; ptr[i][j] != '\0'; j++) {
-            cout << ptr[i][j];
+        for (int j = 0; *(*(ptr+i)+j) != '\0'; j++) {
+            cout << *(*(ptr+i)+j);
         }
         cout << endl;
     }
+    for (int i = 0; i < count; i++) {
+    delete[]*(ptr+i);
+    *(ptr+i)=nullptr;
+    }
+    delete[]ptr;
 
     return 0;
 }

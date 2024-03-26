@@ -1,0 +1,2 @@
+g++ -o programName driver.cpp date.cpp
+./programName
